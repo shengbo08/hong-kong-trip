@@ -352,13 +352,11 @@ export const trip: TripData = {
     },
   ],
   budget: [
-    { id: 'flight-ticket', category: 'flight', label: '來回機票', cost: { amount: 8000, currency: 'TWD' }, note: '已更新為台幣估算' },
-    { id: 'stay', category: 'accommodation', label: '2 晚住宿', cost: { amount: 2000, currency: 'TWD' }, note: '已更新為台幣估算' },
-    { id: 'local-transport', category: 'transport', label: '八達通與市區交通', cost: { amount: 2000, currency: 'TWD' }, note: '已更新為台幣估算' },
-    { id: 'peak', category: 'ticket', label: '太平山纜車或觀景台', cost: { amount: 500, currency: 'TWD' }, note: '已更新為台幣估算' },
+    { id: 'flight-ticket', category: 'flight', label: '機票', cost: { amount: 8000, currency: 'TWD' }, note: 'NT$8,000 TWD' },
+    { id: 'stay', category: 'accommodation', label: '住宿', cost: { amount: 2000, currency: 'TWD' }, note: 'NT$2,000 TWD' },
+    { id: 'local-transport', category: 'transport', label: '交通', cost: { amount: 2000, currency: 'TWD' }, note: 'NT$2,000 TWD' },
     { id: 'disneyland', category: 'ticket', label: '香港迪士尼門票', cost: { amount: 3000, currency: 'TWD' }, note: '暫估，依實際購票日期調整' },
-    { id: 'food', category: 'food', label: '餐飲與飲料', cost: { amount: 5000, currency: 'TWD' }, note: '已更新為台幣估算' },
-    { id: 'shopping', category: 'other', label: '採買與備用金', cost: { amount: 5000, currency: 'TWD' } },
+    { id: 'food', category: 'food', label: '餐飲與飲料', cost: { amount: 4000, currency: 'TWD' }, note: 'NT$4,000 TWD' },
   ],
   importantInfo: {
     passportVisa:
