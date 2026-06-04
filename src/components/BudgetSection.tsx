@@ -10,6 +10,8 @@ interface BudgetSectionProps {
   baseCurrency: CurrencyCode;
 }
 
+const fallbackHkdToTwd = 4.15;
+
 export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
   const [rates, setRates] = useState<ExchangeRates | null>(null);
   const [source, setSource] = useState<'live' | 'fallback'>('fallback');
@@ -61,7 +63,7 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
 
   if (items.length === 0) return <EmptyState />;
 
-  const hkdRateToTwd = rates?.HKD ?? 4.15;
+  const hkdToTwd = rates?.HKD ?? fallbackHkdToTwd;
 
   return (
     <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
@@ -71,13 +73,13 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
             <p className="text-sm font-semibold text-teal-100">預估總預算</p>
             <p className="mt-2 text-4xl font-black">{formatTwd(totals.total)}</p>
             <p className="mt-2 text-sm font-semibold text-white/75">
-              約 {formatHkdFromTwd(totals.total, hkdRateToTwd)}
+              約 {formatHkdFromTwd(totals.total, hkdToTwd)}
             </p>
           </div>
           <Calculator className="h-9 w-9 text-amber-200" aria-hidden="true" />
         </div>
         <p className="mt-4 text-sm leading-6 text-white/75">
-          以 {baseCurrency} 為主要記帳幣別，所有預算項目上方顯示台幣，下方顯示約港幣。
+          以 {baseCurrency} 為主要記帳幣別。每個項目上方顯示台幣，下方顯示約港幣。
         </p>
         <div className="mt-5 rounded-lg bg-white/10 p-4 text-sm">
           <p className="flex items-center gap-2 font-semibold">
@@ -105,7 +107,7 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
                   {formatTwd(twdValue)}
                 </p>
                 <p className="mt-1 text-sm font-semibold text-stone-500 dark:text-stone-400">
-                  約 {formatHkdFromTwd(twdValue, hkdRateToTwd)}
+                  約 {formatHkdFromTwd(twdValue, hkdToTwd)}
                 </p>
               </div>
             );
@@ -134,7 +136,7 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
                     </p>
                     {item.cost.currency !== 'TWD' ? (
                       <p className="mt-1 text-xs text-stone-400 dark:text-stone-500">
-                        原始估算：{formatMoney(item.cost)}
+                        原始金額：{formatMoney(item.cost)}
                       </p>
                     ) : null}
                   </div>
@@ -142,7 +144,7 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
                 <div className="text-left sm:text-right">
                   <p className="font-bold text-stone-950 dark:text-white">{formatTwd(twdValue)}</p>
                   <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-                    約 {formatHkdFromTwd(twdValue, hkdRateToTwd)}
+                    約 {formatHkdFromTwd(twdValue, hkdToTwd)}
                   </p>
                 </div>
               </div>
@@ -154,8 +156,8 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
   );
 }
 
-function formatHkdFromTwd(twdValue: number, hkdRateToTwd: number) {
-  const hkdValue = hkdRateToTwd > 0 ? twdValue / hkdRateToTwd : 0;
+function formatHkdFromTwd(twdValue: number, hkdToTwd: number) {
+  const hkdValue = hkdToTwd > 0 ? twdValue / hkdToTwd : 0;
 
   return `HK$${new Intl.NumberFormat('zh-TW', {
     maximumFractionDigits: 0,
@@ -164,6 +166,6 @@ function formatHkdFromTwd(twdValue: number, hkdRateToTwd: number) {
 
 function convertToTwdFallback(item: BudgetItem) {
   if (item.cost.currency === 'TWD') return item.cost.amount;
-  if (item.cost.currency === 'HKD') return item.cost.amount * 4.15;
+  if (item.cost.currency === 'HKD') return item.cost.amount * fallbackHkdToTwd;
   return 0;
 }

@@ -324,7 +324,7 @@ export const trip: TripData = {
       address: '建議區域：尖沙咀、佐敦、旺角、中上環',
       bookingInfo: '飯店、房型、訂房編號與入住時間待確認。',
       googleMapsUrl: maps('Tsim Sha Tsui Hong Kong hotels'),
-      price: { amount: 4000, currency: 'TWD' },
+      price: { amount: 2000, currency: 'TWD' },
       facilities: ['鄰近港鐵', 'WiFi', '可寄放行李', '雙人房待確認'],
     },
   ],
@@ -352,7 +352,7 @@ export const trip: TripData = {
   ],
   budget: [
     { id: 'flight-ticket', category: 'flight', label: '來回機票', cost: { amount: 8000, currency: 'TWD' }, note: '已更新為台幣估算' },
-    { id: 'stay', category: 'accommodation', label: '2 晚住宿', cost: { amount: 4000, currency: 'TWD' }, note: '已更新為台幣估算' },
+    { id: 'stay', category: 'accommodation', label: '2 晚住宿', cost: { amount: 2000, currency: 'TWD' }, note: '已更新為台幣估算' },
     { id: 'local-transport', category: 'transport', label: '八達通與市區交通', cost: { amount: 350, currency: 'HKD' } },
     { id: 'peak', category: 'ticket', label: '太平山纜車或觀景台', cost: { amount: 108, currency: 'HKD' }, note: '可依實際方案調整' },
     { id: 'food', category: 'food', label: '餐飲與飲料', cost: { amount: 900, currency: 'HKD' } },
