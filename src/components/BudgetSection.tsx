@@ -79,7 +79,7 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
           <Calculator className="h-9 w-9 text-amber-200" aria-hidden="true" />
         </div>
         <p className="mt-4 text-sm leading-6 text-white/75">
-          以 {baseCurrency} 為主要記帳幣別。每個項目上方顯示台幣，下方顯示約港幣。
+          以 {baseCurrency} 為主要記帳幣別。每個項目右側上方顯示台幣，下方顯示約港幣。
         </p>
         <div className="mt-5 rounded-lg bg-white/10 p-4 text-sm">
           <p className="flex items-center gap-2 font-semibold">
@@ -119,6 +119,7 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
             const twdValue = rates
               ? convertToTwd(item.cost.amount, item.cost.currency, rates)
               : convertToTwdFallback(item);
+            const description = item.note?.trim();
 
             return (
               <div
@@ -131,9 +132,11 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
                   <WalletCards className="mt-1 h-5 w-5 shrink-0 text-teal-700 dark:text-teal-300" />
                   <div>
                     <p className="font-semibold text-stone-950 dark:text-white">{item.label}</p>
-                    <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-                      {budgetCategoryLabels[item.category]}，{item.note || '暫估項目'}
-                    </p>
+                    {description ? (
+                      <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                        {description}
+                      </p>
+                    ) : null}
                     {item.cost.currency !== 'TWD' ? (
                       <p className="mt-1 text-xs text-stone-400 dark:text-stone-500">
                         原始金額：{formatMoney(item.cost)}
