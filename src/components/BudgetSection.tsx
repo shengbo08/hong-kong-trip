@@ -61,6 +61,8 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
 
   if (items.length === 0) return <EmptyState />;
 
+  const hkdRateToTwd = rates?.HKD ?? 4.15;
+
   return (
     <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
       <aside className="rounded-lg bg-stone-950 p-5 text-white shadow-sm dark:bg-teal-950">
@@ -68,11 +70,14 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
           <div>
             <p className="text-sm font-semibold text-teal-100">預估總預算</p>
             <p className="mt-2 text-4xl font-black">{formatTwd(totals.total)}</p>
+            <p className="mt-2 text-sm font-semibold text-white/75">
+              約 {formatHkdFromTwd(totals.total, hkdRateToTwd)}
+            </p>
           </div>
           <Calculator className="h-9 w-9 text-amber-200" aria-hidden="true" />
         </div>
         <p className="mt-4 text-sm leading-6 text-white/75">
-          以 {baseCurrency} 為主要記帳幣別，港幣項目會自動估算為台幣。航班與住宿確認後可再調整。
+          以 {baseCurrency} 為主要記帳幣別，所有預算項目上方顯示台幣，下方顯示約港幣。
         </p>
         <div className="mt-5 rounded-lg bg-white/10 p-4 text-sm">
           <p className="flex items-center gap-2 font-semibold">
@@ -85,26 +90,33 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
 
       <div className="space-y-4">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {(Object.keys(budgetCategoryLabels) as BudgetCategory[]).map((category) => (
-            <div
-              key={category}
-              className="rounded-lg border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-900"
-            >
-              <p className="text-sm text-stone-500 dark:text-stone-400">
-                {budgetCategoryLabels[category]}
-              </p>
-              <p className="mt-1 text-xl font-bold text-stone-950 dark:text-white">
-                {formatTwd(totals.byCategory[category] ?? 0)}
-              </p>
-            </div>
-          ))}
+          {(Object.keys(budgetCategoryLabels) as BudgetCategory[]).map((category) => {
+            const twdValue = totals.byCategory[category] ?? 0;
+
+            return (
+              <div
+                key={category}
+                className="rounded-lg border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-900"
+              >
+                <p className="text-sm text-stone-500 dark:text-stone-400">
+                  {budgetCategoryLabels[category]}
+                </p>
+                <p className="mt-1 text-xl font-bold text-stone-950 dark:text-white">
+                  {formatTwd(twdValue)}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-stone-500 dark:text-stone-400">
+                  約 {formatHkdFromTwd(twdValue, hkdRateToTwd)}
+                </p>
+              </div>
+            );
+          })}
         </div>
 
         <div className="rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-900">
           {items.map((item, index) => {
             const twdValue = rates
               ? convertToTwd(item.cost.amount, item.cost.currency, rates)
-              : 0;
+              : convertToTwdFallback(item);
 
             return (
               <div
@@ -120,12 +132,17 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
                     <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
                       {budgetCategoryLabels[item.category]}，{item.note || '暫估項目'}
                     </p>
+                    {item.cost.currency !== 'TWD' ? (
+                      <p className="mt-1 text-xs text-stone-400 dark:text-stone-500">
+                        原始估算：{formatMoney(item.cost)}
+                      </p>
+                    ) : null}
                   </div>
                 </div>
                 <div className="text-left sm:text-right">
-                  <p className="font-bold text-stone-950 dark:text-white">{formatMoney(item.cost)}</p>
+                  <p className="font-bold text-stone-950 dark:text-white">{formatTwd(twdValue)}</p>
                   <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-                    約 {formatTwd(twdValue)}
+                    約 {formatHkdFromTwd(twdValue, hkdRateToTwd)}
                   </p>
                 </div>
               </div>
@@ -135,4 +152,18 @@ export function BudgetSection({ items, baseCurrency }: BudgetSectionProps) {
       </div>
     </div>
   );
+}
+
+function formatHkdFromTwd(twdValue: number, hkdRateToTwd: number) {
+  const hkdValue = hkdRateToTwd > 0 ? twdValue / hkdRateToTwd : 0;
+
+  return `HK$${new Intl.NumberFormat('zh-TW', {
+    maximumFractionDigits: 0,
+  }).format(hkdValue)} HKD`;
+}
+
+function convertToTwdFallback(item: BudgetItem) {
+  if (item.cost.currency === 'TWD') return item.cost.amount;
+  if (item.cost.currency === 'HKD') return item.cost.amount * 4.15;
+  return 0;
 }
