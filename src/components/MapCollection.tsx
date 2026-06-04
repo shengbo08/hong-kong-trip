@@ -29,6 +29,7 @@ const mapCenter: Coordinate = { lat: 22.3027, lng: 114.1772 };
 
 const placeCoordinates: Record<string, Coordinate> = {
   'hkg-airport': { lat: 22.308, lng: 113.9185 },
+  'hong-kong-disneyland': { lat: 22.313, lng: 114.0433 },
   'tsim-sha-tsui': { lat: 22.2988, lng: 114.1722 },
   'avenue-stars': { lat: 22.2933, lng: 114.1748 },
   'harbour-city': { lat: 22.295, lng: 114.1685 },
