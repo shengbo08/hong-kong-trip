@@ -353,9 +353,9 @@ export const trip: TripData = {
   budget: [
     { id: 'flight-ticket', category: 'flight', label: '來回機票', cost: { amount: 8000, currency: 'TWD' }, note: '已更新為台幣估算' },
     { id: 'stay', category: 'accommodation', label: '2 晚住宿', cost: { amount: 2000, currency: 'TWD' }, note: '已更新為台幣估算' },
-    { id: 'local-transport', category: 'transport', label: '八達通與市區交通', cost: { amount: 350, currency: 'HKD' } },
-    { id: 'peak', category: 'ticket', label: '太平山纜車或觀景台', cost: { amount: 108, currency: 'HKD' }, note: '可依實際方案調整' },
-    { id: 'food', category: 'food', label: '餐飲與飲料', cost: { amount: 900, currency: 'HKD' } },
+    { id: 'local-transport', category: 'transport', label: '八達通與市區交通', cost: { amount: 2000, currency: 'TWD' }, note: '已更新為台幣估算' },
+    { id: 'peak', category: 'ticket', label: '太平山纜車或觀景台', cost: { amount: 500, currency: 'TWD' }, note: '已更新為台幣估算' },
+    { id: 'food', category: 'food', label: '餐飲與飲料', cost: { amount: 5000, currency: 'TWD' }, note: '已更新為台幣估算' },
     { id: 'shopping', category: 'other', label: '採買與備用金', cost: { amount: 5000, currency: 'TWD' } },
   ],
   importantInfo: {
