@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="20" x2="160" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#169196"/>
+      <stop offset="1" stop-color="#ffc261"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" rx="36" fill="url(#bg)"/>
+  <circle cx="143" cy="43" r="21" fill="#ffe680"/>
+  <path d="M-28 157c42-38 92-58 150-50 34 5 62 18 86 38v55H-28z" fill="#0d5c74"/>
+  <path d="M-22 166c50-24 97-26 143-10 23 8 42 20 63 38H-22z" fill="#ffe8b1"/>
+  <path d="M28 126 88 74l63 52z" fill="#1c6f53"/>
+  <path d="m67 124 17-41" stroke="#563d2d" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="102" cy="77" rx="24" ry="10" fill="#2a9c69"/>
+  <ellipse cx="78" cy="71" rx="22" ry="10" fill="#2a9c69"/>
+  <ellipse cx="72" cy="87" rx="24" ry="9" fill="#2a9c69"/>
+  <path d="m25 54 128 37" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+  <rect x="110" y="78" width="33" height="24" rx="7" fill="#f44949"/>
+  <rect x="116" y="84" width="8" height="8" fill="#fff" opacity=".92"/>
+  <rect x="128" y="84" width="8" height="8" fill="#fff" opacity=".92"/>
+  <text x="90" y="159" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#fff">PQ</text>
+</svg>

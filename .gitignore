@@ -1,0 +1,9 @@
+node_modules
+dist
+.pages-deploy
+.env
+.env.local
+npm-debug.log*
+vite-dev*.log
+mobile-*.png
+.DS_Store
